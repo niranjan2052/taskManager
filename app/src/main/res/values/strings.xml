@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TaskManager</string>
+    <string name="applogo">AppLogo</string>
+    <string name="ActionBtnDescription">Add New Task to the Recycler View Via this Button</string>
+    <string name="login_btn_text">Login</string>
+    <string name="password_btn_hint">Password</string>
+    <string name="username_btn_hint">Username</string>
+    <string name="loginToSignUpLink">Not yet registered? Sign Up</string>
+    <string name="statusText">Is Completed</string>
+    <string name="default_date">JAN 01 2025</string>
+</resources>
