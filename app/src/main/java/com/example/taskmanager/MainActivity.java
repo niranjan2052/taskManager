@@ -3,11 +3,7 @@ package com.example.taskmanager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.media.Image;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,17 +23,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-//    Dialog dialog = new Dialog(MainActivity.this);
     ArrayList<TaskModel> arrayTaskList = new ArrayList<>();
     RecyclerTaskAdapter adapter;
     DatePickerDialog datePickerDialog;
+    RecyclerView recyclerView;
+    View emptyStateLayout;
     Button dateButton;
 
     @Override
@@ -51,37 +47,35 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-//        initDatePicker();
-//        dialog.setContentView(R.layout.task_add_popup_layout);
-//        dateButton = dialog.findViewById(R.id.btnDueDatePicker);
 
         ImageView backBtn = findViewById(R.id.toolbar_back_btn);
         ImageView menuBtn = findViewById(R.id.menu_icon);
         TextView toolBarTitle = findViewById(R.id.toolbar_title);
         FloatingActionButton btnOpenAddTaskDialogBox = findViewById(R.id.addTaskDialogBox);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerTaskList);
+        recyclerView = findViewById(R.id.recyclerTaskList);
+        emptyStateLayout = findViewById(R.id.empty_state_layout);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        TaskModel taskModel = new TaskModel("Task1","Task Description","8/21/2024",true);
 
-        arrayTaskList.add(new TaskModel("Task1", "Task Description", "AUG 24 2024", true));
-        arrayTaskList.add(new TaskModel("Task2", "Task Description", "MAY 28 2024", true));
-        arrayTaskList.add(new TaskModel("Task3", "Task Description", "SEPT 21 2024", true));
-        arrayTaskList.add(new TaskModel("Task4", "Task Description", "OCT 21 2024", true));
-        arrayTaskList.add(new TaskModel("Task5", "Task Description", "NOV 21 2024", true));
-        arrayTaskList.add(new TaskModel("Task6", "Task Description", "DEC 21 2024", true));
-        arrayTaskList.add(new TaskModel("Task7", "Task Description", "JAN 21 2024", true));
-        arrayTaskList.add(new TaskModel("Task8", "Task Description", "FEB 21 2024", true));
-        arrayTaskList.add(new TaskModel("Task9", "Task Description", "MAR 21 2024", true));
-        arrayTaskList.add(new TaskModel("Task10", "Task Description", "APR 21 2024", true));
-        arrayTaskList.add(new TaskModel("Task11", "Task Description", "JUN 21 2024", true));
-        arrayTaskList.add(new TaskModel("Task12", "Task Description", "JUL 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task1", "Task Description", "AUG 24 2024", true));
+//        arrayTaskList.add(new TaskModel("Task2", "Task Description", "MAY 28 2024", true));
+//        arrayTaskList.add(new TaskModel("Task3", "Task Description", "SEPT 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task4", "Task Description", "OCT 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task5", "Task Description", "NOV 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task6", "Task Description", "DEC 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task7", "Task Description", "JAN 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task8", "Task Description", "FEB 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task9", "Task Description", "MAR 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task10", "Task Description", "APR 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task11", "Task Description", "JUN 21 2024", true));
+//        arrayTaskList.add(new TaskModel("Task12", "Task Description", "JUL 21 2024", true));
 
         adapter = new RecyclerTaskAdapter(this, arrayTaskList);
         recyclerView.setAdapter(adapter);
 
+        checkIfEmpty(arrayTaskList);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 TextView txtPopUpTitle = dialog.findViewById(R.id.txtPopUpTitle);
                 EditText edtTitle = dialog.findViewById(R.id.edtPopUpCardTitle);
                 EditText edtDescription = dialog.findViewById(R.id.edtPopUpCardDescription);
-//                Button btnDueDate = dialog.findViewById(R.id.btnDueDatePicker);
                 CheckBox chkStatus = dialog.findViewById(R.id.chkStatusBox);
                 Button btnTaskAction = dialog.findViewById(R.id.btnTaskAction);
 
@@ -152,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                             adapter.notifyItemInserted(arrayTaskList.size() - 1);
                             recyclerView.scrollToPosition(arrayTaskList.size() - 1);
                             dialog.dismiss();
+                            checkIfEmpty(arrayTaskList);
                         }
                     }
                 });
@@ -224,5 +218,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void openDatePicker(View view) {
         datePickerDialog.show();
+    }
+
+    private void checkIfEmpty(ArrayList<TaskModel> items) {
+        if (items.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            emptyStateLayout.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyStateLayout.setVisibility(View.GONE);
+        }
     }
 }

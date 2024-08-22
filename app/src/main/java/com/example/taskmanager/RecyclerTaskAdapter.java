@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,7 +65,6 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
             Toast.makeText(context, "Unable to Find Difference", Toast.LENGTH_SHORT).show();
         }
 
-
         //Code to edit Task
         holder.LLTaskRow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +76,6 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
                 TextView txtPopUpTitle = dialog.findViewById(R.id.txtPopUpTitle);
                 EditText edtTitle = dialog.findViewById(R.id.edtPopUpCardTitle);
                 EditText edtDescription = dialog.findViewById(R.id.edtPopUpCardDescription);
-//                Button btnDueDate = dialog.findViewById(R.id.btnDueDatePicker);
                 CheckBox chkStatus = dialog.findViewById(R.id.chkStatusBox);
                 Button btnTaskAction = dialog.findViewById(R.id.btnTaskAction);
 
@@ -149,8 +148,6 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
 
                             }
                         });
-
-
                 builder.show();
                 return true;
             }
@@ -165,6 +162,7 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtTitle, dueDate, daysLeft;
+        View emptyLayout;
         LinearLayout LLTaskRow;
 
         public ViewHolder(@NonNull View itemView) {
@@ -172,6 +170,7 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
             txtTitle = itemView.findViewById(R.id.txtRecyclerCardTitle);
             dueDate = itemView.findViewById(R.id.txtRecyclerCardDueDays);
             daysLeft = itemView.findViewById(R.id.txtRecyclerCardDaysLeft);
+            emptyLayout = itemView.findViewById(R.id.empty_state_layout);
             LLTaskRow = itemView.findViewById(R.id.LLTaskRow);
 
         }
