@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -141,6 +140,8 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 arrayTasks.remove(holder.getAdapterPosition());
                                 notifyItemRemoved(holder.getAdapterPosition());
+                                MainActivity activity = (MainActivity) context;
+                                activity.checkIfEmpty(arrayTasks);
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
@@ -175,6 +176,16 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
 
         }
     }
+
+//    private void checkIfEmpty(ArrayList<TaskModel> items) {
+//        if (items.isEmpty()) {
+//            recyclerView.setVisibility(View.GONE);
+//            emptyStateLayout.setVisibility(View.VISIBLE);
+//        } else {
+//            recyclerView.setVisibility(View.VISIBLE);
+//            emptyStateLayout.setVisibility(View.GONE);
+//        }
+//    }
 
     public void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {

@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void checkIfEmpty(ArrayList<TaskModel> items) {
+    public void checkIfEmpty(ArrayList<TaskModel> items) {
         if (items.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             emptyStateLayout.setVisibility(View.VISIBLE);
