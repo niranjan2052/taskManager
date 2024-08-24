@@ -21,6 +21,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+
             <TextView
                 android:id="@+id/txtPopUpTitle"
                 android:layout_width="match_parent"
@@ -32,6 +33,7 @@
                 android:textColor="@color/themeBlueColor"
                 android:textSize="36sp"
                 android:textStyle="bold" />
+
 
             <EditText
                 android:id="@+id/edtPopUpCardTitle"

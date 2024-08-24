@@ -96,6 +96,10 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
 
                 MyDBHelper dbHelper = new MyDBHelper(context);
 
+                TaskModel model = new TaskModel();
+
+                model.taskId = arrayTasks.get(index).taskId;
+
                 edtTitle.setText(title);
                 edtDescription.setText(description);
                 datePickerButton.setText(dueDate);
@@ -126,17 +130,12 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
                             Toast.makeText(context, "Please! Enter Due Date", Toast.LENGTH_SHORT).show();
                         }
                         status = chkStatus.isChecked();
-
-                        arrayTasks.set(holder.getAdapterPosition(), new TaskModel(title, description, dueDate, status));
-                        TaskModel model = new TaskModel();
-
-                        model.taskId = arrayTasks.get(holder.getAdapterPosition()).taskId;
                         model.title = title;
                         model.description = description;
                         model.dueDate = dueDate;
                         model.status = status;
-                        Log.d("Task Info", "Task Id"+arrayTasks.get(holder.getAdapterPosition()).taskId);
                         dbHelper.updateTask(model);
+                        arrayTasks.set(holder.getAdapterPosition(), new TaskModel(model.taskId,title, description, dueDate, status));
                         notifyItemChanged(holder.getAdapterPosition());
                         dialog.dismiss();
                     }

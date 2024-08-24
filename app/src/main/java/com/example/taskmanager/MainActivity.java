@@ -70,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
 //        TaskModel model = new TaskModel();
 //
-//        model.taskId = 1;
-//        model.title = "Title1 updated";
+//        model.taskId = 9;
+//        model.title = "Title1 updated ta";
 //        model.description = "Updated Description";
-//        model.dueDate = "SEPT 04 2024";
-//        model.status = false;
+//        model.dueDate = "SEPT 10 2024";
+//        model.status = true;
 //
 //        dbHelper.updateTask(model);
 

@@ -5,10 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
-
-import kotlinx.coroutines.scheduling.Task;
 
 public class MyDBHelper extends SQLiteOpenHelper {
 
@@ -78,11 +77,13 @@ public class MyDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+//        Log.d("Task Info", "updateTask: Id: " + taskModel.taskId + "Title: " + taskModel.title + "Description" + taskModel.description + "Duedate " + taskModel.dueDate + "Status: " + taskModel.status);
+
         cv.put(KEY_TITLE, taskModel.title);
         cv.put(KEY_DESCRIPTION, taskModel.description);
         cv.put(KEY_DUE_DATE, taskModel.dueDate);
         cv.put(KEY_STATUS, taskModel.status);
-        database.update(TABLE_TASK, cv, KEY_ID + " = " + taskModel.taskId, null);
+        database.update(TABLE_TASK, cv, KEY_ID + " = ?", new String[]{String.valueOf(taskModel.taskId)});
     }
 
     public void deleteTask(int id) {
