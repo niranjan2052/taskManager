@@ -17,4 +17,7 @@ public class TaskModel {
         this.dueDate = dueDate;
     }
 
+    public TaskModel() {
+
+    }
 }

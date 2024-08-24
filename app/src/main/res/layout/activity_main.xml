@@ -69,7 +69,9 @@
             android:background="@color/white"
             app:itemIconTint="@color/themeBlueColor"
             app:itemTextColor="@color/black"
-            app:menu="@menu/navigation_menu" />
+            app:menu="@menu/navigation_menu"
+            app:headerLayout="@layout/header_layout"
+            />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </RelativeLayout>

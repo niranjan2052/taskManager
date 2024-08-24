@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -59,6 +61,31 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        MyDBHelper dbHelper = new MyDBHelper(this);
+
+//        dbHelper.addTask("Title1","Description1", "AUG 28 2024",1);
+//        dbHelper.addTask("Title2","Description2", "AUG 28 2025",0);
+//        dbHelper.addTask("Title3","Description3", "AUG 28 2026",1);
+
+
+//        TaskModel model = new TaskModel();
+//
+//        model.taskId = 1;
+//        model.title = "Title1 updated";
+//        model.description = "Updated Description";
+//        model.dueDate = "SEPT 04 2024";
+//        model.status = false;
+//
+//        dbHelper.updateTask(model);
+
+
+//        dbHelper.deleteTask(2);
+//
+//        ArrayList<TaskModel> arrTask = dbHelper.fetchTask();
+//
+//        for (int i = 0; i < arrTask.size(); i++)
+//            Log.d("TASK INFO", "TITLE: " + arrTask.get(i).title + " Description " + arrTask.get(i).description + "Due Date " + arrTask.get(i).dueDate + " Status " + arrTask.get(i).status);
+
         toolbar = findViewById(R.id.toolbar_layout);
         setSupportActionBar(toolbar);
 
@@ -71,22 +98,25 @@ public class MainActivity extends AppCompatActivity {
 
                 int itemId = item.getItemId();
 
-                if(itemId == R.id.menu_home){
+                if (itemId == R.id.menu_home) {
                     item.setChecked(true);
                     Toast.makeText(MainActivity.this, "Home Page Selected", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawers();
                     return true;
-                }else if(itemId == R.id.menu_logout){
+                } else if (itemId == R.id.menu_logout) {
 //                    item.setChecked(true);
 //                    Toast.makeText(MainActivity.this, "LogOut Selected", Toast.LENGTH_SHORT).show();
-                    SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
+                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("remember","false");
+                    editor.putString("remember", "false");
                     editor.apply();
                     drawerLayout.closeDrawers();
-                    Intent iLogin = new Intent(getApplicationContext(),LoginActivity.class);
+                    Intent iLogin = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(iLogin);
                     finish();
+                    return true;
+                } else if (itemId == R.id.menu_exit) {
+                    finishAffinity();
                     return true;
                 }
                 return false;
@@ -118,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 //        arrayTaskList.add(new TaskModel("Task11", "Task Description", "JUN 21 2024", true));
 //        arrayTaskList.add(new TaskModel("Task12", "Task Description", "JUL 21 2024", true));
 
+        arrayTaskList = dbHelper.fetchTask();
         adapter = new RecyclerTaskAdapter(this, arrayTaskList);
         recyclerView.setAdapter(adapter);
 
@@ -126,14 +157,15 @@ public class MainActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "You clicked on Back Button", Toast.LENGTH_SHORT).show();
+                onBackPressed();
             }
         });
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "You clicked on Menu Button", Toast.LENGTH_SHORT).show();
+                //Menu Btn
+                drawerLayout.openDrawer(GravityCompat.END);
             }
         });
 
@@ -187,7 +219,13 @@ public class MainActivity extends AppCompatActivity {
                         status = chkStatus.isChecked();
 
                         if (!title.isEmpty() && !description.isEmpty() && !dueDate.isEmpty()) {
+                            int statusInInt;
                             arrayTaskList.add(new TaskModel(title, description, dueDate, status));
+                            if (status)
+                                statusInInt = 1;
+                            else
+                                statusInInt = 0;
+                            dbHelper.addTask(title, description, dueDate, statusInInt);
                             adapter.notifyItemInserted(arrayTaskList.size() - 1);
                             recyclerView.scrollToPosition(arrayTaskList.size() - 1);
                             dialog.dismiss();
