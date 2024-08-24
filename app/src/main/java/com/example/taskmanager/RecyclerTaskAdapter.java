@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,11 +88,18 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
                         datePickerDialog.show();
                     }
                 });
+                int index = holder.getAdapterPosition();
+                String title = arrayTasks.get(index).title;
+                String description = arrayTasks.get(index).description;
+                String dueDate = arrayTasks.get(index).dueDate;
+                boolean status = arrayTasks.get(index).status;
 
-                edtTitle.setText(arrayTasks.get(holder.getAdapterPosition()).title);
-                edtDescription.setText(arrayTasks.get(holder.getAdapterPosition()).description);
-                datePickerButton.setText(arrayTasks.get(holder.getAdapterPosition()).dueDate);
-                chkStatus.setChecked(arrayTasks.get(holder.getAdapterPosition()).status);
+                MyDBHelper dbHelper = new MyDBHelper(context);
+
+                edtTitle.setText(title);
+                edtDescription.setText(description);
+                datePickerButton.setText(dueDate);
+                chkStatus.setChecked(status);
 
                 //Update Task
                 btnTaskAction.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +128,15 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
                         status = chkStatus.isChecked();
 
                         arrayTasks.set(holder.getAdapterPosition(), new TaskModel(title, description, dueDate, status));
+                        TaskModel model = new TaskModel();
+
+                        model.taskId = arrayTasks.get(holder.getAdapterPosition()).taskId;
+                        model.title = title;
+                        model.description = description;
+                        model.dueDate = dueDate;
+                        model.status = status;
+                        Log.d("Task Info", "Task Id"+arrayTasks.get(holder.getAdapterPosition()).taskId);
+                        dbHelper.updateTask(model);
                         notifyItemChanged(holder.getAdapterPosition());
                         dialog.dismiss();
                     }
@@ -138,10 +155,14 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                arrayTasks.remove(holder.getAdapterPosition());
-                                notifyItemRemoved(holder.getAdapterPosition());
+                                int index = holder.getAdapterPosition();
+                                MyDBHelper dbHelper = new MyDBHelper(context);
+                                dbHelper.deleteTask(arrayTasks.get(index).taskId);
+                                arrayTasks.remove(index);
+                                notifyItemRemoved(index);
                                 MainActivity activity = (MainActivity) context;
                                 activity.checkIfEmpty(arrayTasks);
+
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
