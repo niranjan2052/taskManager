@@ -3,7 +3,10 @@ package com.example.taskmanager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,15 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     View emptyStateLayout;
     Button dateButton;
+
     Toolbar toolbar;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
 
 
     @Override
@@ -52,6 +61,37 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar_layout);
         setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigationView);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int itemId = item.getItemId();
+
+                if(itemId == R.id.menu_home){
+                    item.setChecked(true);
+                    Toast.makeText(MainActivity.this, "Home Page Selected", Toast.LENGTH_SHORT).show();
+                    drawerLayout.closeDrawers();
+                    return true;
+                }else if(itemId == R.id.menu_logout){
+//                    item.setChecked(true);
+//                    Toast.makeText(MainActivity.this, "LogOut Selected", Toast.LENGTH_SHORT).show();
+                    SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember","false");
+                    editor.apply();
+                    drawerLayout.closeDrawers();
+                    Intent iLogin = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(iLogin);
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
         ImageView backBtn = findViewById(R.id.toolbar_back_btn);
