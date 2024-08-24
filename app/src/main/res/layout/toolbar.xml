@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/themeBlueColor">
@@ -35,4 +36,4 @@
             android:src="@drawable/baseline_menu_24" />
     </RelativeLayout>
 
-</RelativeLayout>
+</androidx.appcompat.widget.Toolbar>
