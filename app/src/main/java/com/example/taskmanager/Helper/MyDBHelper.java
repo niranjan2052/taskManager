@@ -1,11 +1,12 @@
-package com.example.taskmanager;
+package com.example.taskmanager.Helper;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+
+import com.example.taskmanager.Model.TaskModel;
 
 import java.util.ArrayList;
 

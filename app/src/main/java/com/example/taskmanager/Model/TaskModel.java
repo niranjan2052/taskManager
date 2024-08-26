@@ -1,17 +1,19 @@
-package com.example.taskmanager;
+package com.example.taskmanager.Model;
 
 public class TaskModel {
-    int taskId;
-    String title, description, dueDate;
-    Boolean status;
+    public int taskId;
+    public String title;
+    public String description;
+    public String dueDate;
+    public Boolean status;
 
-    TaskModel(String title, String description, String dueDate, Boolean status){
+    public TaskModel(String title, String description, String dueDate, Boolean status){
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.status = status;
     }
-    TaskModel(int taskId, String title, String description, String dueDate, Boolean status){
+    public TaskModel(int taskId, String title, String description, String dueDate, Boolean status){
         this.taskId=taskId;
         this.title = title;
         this.description = description;

@@ -1,4 +1,4 @@
-package com.example.taskmanager;
+package com.example.taskmanager.Adapter;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -19,6 +19,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.taskmanager.Activity.MainActivity;
+import com.example.taskmanager.Model.TaskModel;
+import com.example.taskmanager.Helper.MyDBHelper;
+import com.example.taskmanager.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,7 +36,7 @@ public class RecyclerTaskAdapter extends RecyclerView.Adapter<RecyclerTaskAdapte
     DatePickerDialog datePickerDialog;
     Button datePickerButton;
 
-    RecyclerTaskAdapter(Context context, ArrayList<TaskModel> arrayTasks) {
+    public RecyclerTaskAdapter(Context context, ArrayList<TaskModel> arrayTasks) {
         this.context = context;
         this.arrayTasks = arrayTasks;
     }

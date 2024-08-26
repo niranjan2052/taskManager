@@ -1,4 +1,4 @@
-package com.example.taskmanager;
+package com.example.taskmanager.Activity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -28,6 +28,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.taskmanager.Adapter.RecyclerTaskAdapter;
+import com.example.taskmanager.Model.TaskModel;
+import com.example.taskmanager.Helper.MyDBHelper;
+import com.example.taskmanager.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
