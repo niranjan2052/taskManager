@@ -47,11 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         String checkbox = preferences.getString("remember", "");
 
         if (checkbox.equals("true")) {
-            Toast.makeText(LoginActivity.this, "Welcome to Home Page", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, "Welcome to Home Page", Toast.LENGTH_SHORT).show();
             startActivity(iHome);
             finish();
         } else {
-            Toast.makeText(LoginActivity.this, "Please! Log In", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, "Please! Log In", Toast.LENGTH_SHORT).show();
         }
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!username.getText().toString().isEmpty() && !password.getText().toString().isEmpty()) {
                     if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
-                        Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
                         startActivity(iHome);
                         finish();
                     } else {

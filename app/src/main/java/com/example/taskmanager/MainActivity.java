@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +33,6 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.menu_home) {
                     item.setChecked(true);
-                    Toast.makeText(MainActivity.this, "Home Page Selected", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "Home Page Selected", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawers();
                     return true;
                 } else if (itemId == R.id.menu_logout) {
